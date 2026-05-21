@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import { useTheme } from '../context/ThemeContext';
-import { Mail, Lock, AlertCircle, Chrome } from 'lucide-react';
+import { Mail, Lock, AlertCircle } from 'lucide-react';
 import Swal from 'sweetalert2';
 
 const Login = () => {
@@ -198,7 +198,12 @@ const Login = () => {
           disabled={loading}
           className="w-full flex items-center justify-center space-x-2 py-2 px-4 border border-slate-200 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-800 rounded-lg text-sm font-semibold text-slate-700 dark:text-slate-200 transition-colors focus:outline-none"
         >
-          <Chrome className="h-5 w-5 text-red-500" />
+          <svg className="h-5 w-5" viewBox="0 0 24 24">
+            <path fill="#EA4335" d="M12 4.787c1.782 0 3.385.603 4.646 1.8l3.491-3.491C18.04 1.18 15.228 0 12 0 7.375 0 3.371 2.617 1.341 6.451l4.053 3.146C6.353 6.711 8.949 4.787 12 4.787z"/>
+            <path fill="#4285F4" d="M23.985 12.278c0-.84-.075-1.646-.215-2.433H12v4.606h6.719c-.29 1.488-1.11 2.748-2.352 3.58v2.981h3.811c2.23-2.053 3.513-5.077 3.513-8.734z"/>
+            <path fill="#FBBC05" d="M6.353 14.403c-.244-.734-.383-1.523-.383-2.341s.139-1.607.383-2.341L2.301 6.575C1.611 7.95 1.22 9.531 1.22 11.202s.391 3.252 1.081 4.627l4.052-3.146z"/>
+            <path fill="#34A853" d="M12 24c3.228 0 5.94-1.07 7.922-2.894l-3.812-2.981c-1.074.721-2.449 1.147-4.11 1.147-3.051 0-5.647-1.924-6.606-4.81l-4.053 3.147C3.371 21.383 7.375 24 12 24z"/>
+          </svg>
           <span>Continue with Google</span>
         </button>
 

@@ -277,7 +277,7 @@ const MyTutors = () => {
                     <td className="px-6 py-4 whitespace-nowrap">
                       <div className="flex items-center space-x-3">
                         <img 
-                          className="h-10 w-10 rounded-lg object-cover bg-slate-100" 
+                          className="h-10 w-10 rounded-lg object-cover object-top bg-slate-100" 
                           src={tutor.image} 
                           alt={tutor.name} 
                           onError={(e) => {

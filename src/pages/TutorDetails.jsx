@@ -151,7 +151,7 @@ const TutorDetails = () => {
               <img 
                 src={tutor.image} 
                 alt={tutor.name} 
-                className="w-full h-full object-cover"
+                className="w-full h-full object-cover object-top"
                 onError={(e) => {
                   e.target.src = 'https://images.unsplash.com/photo-1577896851231-70ef18881754?auto=format&fit=crop&q=80&w=400';
                 }}
