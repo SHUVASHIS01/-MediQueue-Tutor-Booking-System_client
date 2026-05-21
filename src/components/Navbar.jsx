@@ -133,12 +133,79 @@ const Navbar = () => {
                       <button
                         onClick={() => {
                           setDropdownOpen(false);
+                          const avatarUrl = user.photoURL || 'https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?auto=format&fit=crop&q=80&w=200';
+                          const isDark = theme === 'dark';
                           Swal.fire({
-                            title: 'Profile Settings',
-                            html: `<div class="text-left"><p><strong>Name:</strong> ${user.displayName || 'N/A'}</p><p><strong>Email:</strong> ${user.email}</p></div>`,
-                            icon: 'info',
-                            background: theme === 'dark' ? '#1e293b' : '#ffffff',
-                            color: theme === 'dark' ? '#f1f5f9' : '#0f172a'
+                            background: isDark ? '#0f1626' : '#ffffff',
+                            color: isDark ? '#f1f5f9' : '#0f172a',
+                            showConfirmButton: true,
+                            confirmButtonText: 'Close',
+                            customClass: {
+                              popup: 'rounded-3xl shadow-2xl border border-slate-200 dark:border-slate-800 p-0 overflow-hidden',
+                              confirmButton: 'profile-swal-btn',
+                            },
+                            html: `
+                              <style>
+                                .profile-swal-btn {
+                                  background: linear-gradient(to right, #4F46E5, #14b8a6) !important;
+                                  border: none !important;
+                                  border-radius: 12px !important;
+                                  padding: 10px 32px !important;
+                                  font-weight: 700 !important;
+                                  font-size: 13px !important;
+                                  letter-spacing: 0.05em !important;
+                                  box-shadow: 0 4px 15px rgba(79,70,229,0.3) !important;
+                                  transition: all 0.2s !important;
+                                }
+                                .profile-swal-btn:hover {
+                                  transform: translateY(-1px) !important;
+                                  box-shadow: 0 6px 20px rgba(79,70,229,0.4) !important;
+                                }
+                              </style>
+                              <div style="padding: 0;">
+                                <!-- Gradient Header Banner -->
+                                <div style="background: linear-gradient(135deg, #4F46E5 0%, #0ea5e9 50%, #14b8a6 100%); padding: 32px 24px 48px; position: relative; overflow: hidden;">
+                                  <div style="position:absolute;top:-30px;right:-30px;width:120px;height:120px;border-radius:50%;background:rgba(255,255,255,0.08);"></div>
+                                  <div style="position:absolute;bottom:-20px;left:-20px;width:80px;height:80px;border-radius:50%;background:rgba(255,255,255,0.06);"></div>
+                                  <p style="color:rgba(255,255,255,0.7);font-size:11px;font-weight:700;letter-spacing:0.15em;text-transform:uppercase;margin:0 0 6px;">MediQueue Account</p>
+                                  <p style="color:#fff;font-size:22px;font-weight:800;margin:0;letter-spacing:-0.02em;">Profile Settings</p>
+                                </div>
+
+                                <!-- Avatar overlapping the banner -->
+                                <div style="display:flex;justify-content:center;margin-top:-40px;position:relative;z-index:10;">
+                                  <div style="padding:4px;background:${isDark ? '#0f1626' : '#fff'};border-radius:50%;box-shadow:0 8px 32px rgba(79,70,229,0.25);">
+                                    <img src="${avatarUrl}" alt="Avatar" style="width:76px;height:76px;border-radius:50%;object-fit:cover;display:block;" />
+                                  </div>
+                                </div>
+
+                                <!-- Info -->
+                                <div style="padding: 16px 28px 28px;">
+                                  <p style="text-align:center;font-size:18px;font-weight:800;color:${isDark ? '#f1f5f9' : '#0f172a'};margin:8px 0 4px;">${user.displayName || 'User'}</p>
+                                  <p style="text-align:center;font-size:12px;color:${isDark ? '#94a3b8' : '#64748b'};margin:0 0 20px;">${user.email}</p>
+
+                                  <div style="background:${isDark ? '#1e293b' : '#f8fafc'};border:1px solid ${isDark ? '#334155' : '#e2e8f0'};border-radius:16px;overflow:hidden;">
+                                    <div style="display:flex;align-items:center;gap:12px;padding:14px 18px;border-bottom:1px solid ${isDark ? '#334155' : '#e2e8f0'};">
+                                      <div style="width:34px;height:34px;border-radius:10px;background:linear-gradient(135deg,#4F46E5,#14b8a6);display:flex;align-items:center;justify-content:center;flex-shrink:0;">
+                                        <svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'><path d='M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2'/><circle cx='12' cy='7' r='4'/></svg>
+                                      </div>
+                                      <div style="text-align:left;">
+                                        <p style="font-size:10px;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;color:${isDark ? '#64748b' : '#94a3b8'};margin:0 0 2px;">Full Name</p>
+                                        <p style="font-size:14px;font-weight:700;color:${isDark ? '#f1f5f9' : '#0f172a'};margin:0;">${user.displayName || 'N/A'}</p>
+                                      </div>
+                                    </div>
+                                    <div style="display:flex;align-items:center;gap:12px;padding:14px 18px;">
+                                      <div style="width:34px;height:34px;border-radius:10px;background:linear-gradient(135deg,#0ea5e9,#14b8a6);display:flex;align-items:center;justify-content:center;flex-shrink:0;">
+                                        <svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'><rect width='20' height='16' x='2' y='4' rx='2'/><path d='m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7'/></svg>
+                                      </div>
+                                      <div style="text-align:left;min-width:0;">
+                                        <p style="font-size:10px;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;color:${isDark ? '#64748b' : '#94a3b8'};margin:0 0 2px;">Email Address</p>
+                                        <p style="font-size:13px;font-weight:700;color:${isDark ? '#f1f5f9' : '#0f172a'};margin:0;word-break:break-all;">${user.email}</p>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            `,
                           });
                         }}
                         className="flex items-center space-x-2 w-full px-4 py-2 text-sm text-left hover:bg-slate-50 dark:hover:bg-slate-700 transition-colors"
