@@ -142,47 +142,7 @@ const Home = () => {
         </div>
       </div>
 
-      {/* 2. Platform Statistics (Extra Section 1) */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="bg-gradient-to-r from-slate-900 to-slate-950 dark:from-[#0f1626] dark:to-[#090e1a] rounded-3xl p-8 sm:p-12 shadow-xl border border-slate-800 text-white transition-colors duration-300">
-          <div className="text-center max-w-2xl mx-auto mb-12">
-            <span className="text-xs font-bold uppercase tracking-wider text-teal-400 bg-teal-950/40 px-3 py-1 rounded-full">
-              Why Choose MediQueue
-            </span>
-            <h2 className="text-3xl sm:text-4xl font-extrabold mt-3">
-              Streamlining Tutor Connections
-            </h2>
-            <p className="text-sm text-slate-400 mt-2">
-              Our dynamic booking engine eliminates schedule overlap, ensuring simple slot management for students and tutors alike.
-            </p>
-          </div>
-
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
-            <div className="flex flex-col items-center text-center p-4">
-              <Users className="h-10 w-10 text-primary-400 mb-3" />
-              <span className="text-3xl font-extrabold text-white">15,000+</span>
-              <span className="text-xs text-slate-400 uppercase tracking-wider mt-1">Active Students</span>
-            </div>
-            <div className="flex flex-col items-center text-center p-4">
-              <Clock className="h-10 w-10 text-teal-400 mb-3" />
-              <span className="text-3xl font-extrabold text-white">450,000+</span>
-              <span className="text-xs text-slate-400 uppercase tracking-wider mt-1">Tuition Hours</span>
-            </div>
-            <div className="flex flex-col items-center text-center p-4">
-              <Award className="h-10 w-10 text-primary-400 mb-3" />
-              <span className="text-3xl font-extrabold text-white">99.2%</span>
-              <span className="text-xs text-slate-400 uppercase tracking-wider mt-1">Satisfaction Rate</span>
-            </div>
-            <div className="flex flex-col items-center text-center p-4">
-              <TrendingUp className="h-10 w-10 text-teal-400 mb-3" />
-              <span className="text-3xl font-extrabold text-white">1,200+</span>
-              <span className="text-xs text-slate-400 uppercase tracking-wider mt-1">Elite Tutors</span>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      {/* 3. Available Tutors Section (Featured 6) */}
+      {/* 2. Available Tutors Section (Featured 6) */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex flex-col sm:flex-row justify-between items-start sm:items-end mb-10 gap-4">
           <div>
@@ -279,6 +239,46 @@ const Home = () => {
             ))}
           </div>
         )}
+      </div>
+
+      {/* 3. Platform Statistics (Extra Section 1) */}
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="bg-gradient-to-r from-slate-900 to-slate-950 dark:from-[#0f1626] dark:to-[#090e1a] rounded-3xl p-8 sm:p-12 shadow-xl border border-slate-800 text-white transition-colors duration-300">
+          <div className="text-center max-w-2xl mx-auto mb-12">
+            <span className="text-xs font-bold uppercase tracking-wider text-teal-400 bg-teal-950/40 px-3 py-1 rounded-full">
+              Why Choose MediQueue
+            </span>
+            <h2 className="text-3xl sm:text-4xl font-extrabold mt-3">
+              Streamlining Tutor Connections
+            </h2>
+            <p className="text-sm text-slate-400 mt-2">
+              Our dynamic booking engine eliminates schedule overlap, ensuring simple slot management for students and tutors alike.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+            <div className="flex flex-col items-center text-center p-4">
+              <Users className="h-10 w-10 text-primary-400 mb-3" />
+              <span className="text-3xl font-extrabold text-white">15,000+</span>
+              <span className="text-xs text-slate-400 uppercase tracking-wider mt-1">Active Students</span>
+            </div>
+            <div className="flex flex-col items-center text-center p-4">
+              <Clock className="h-10 w-10 text-teal-400 mb-3" />
+              <span className="text-3xl font-extrabold text-white">450,000+</span>
+              <span className="text-xs text-slate-400 uppercase tracking-wider mt-1">Tuition Hours</span>
+            </div>
+            <div className="flex flex-col items-center text-center p-4">
+              <Award className="h-10 w-10 text-primary-400 mb-3" />
+              <span className="text-3xl font-extrabold text-white">99.2%</span>
+              <span className="text-xs text-slate-400 uppercase tracking-wider mt-1">Satisfaction Rate</span>
+            </div>
+            <div className="flex flex-col items-center text-center p-4">
+              <TrendingUp className="h-10 w-10 text-teal-400 mb-3" />
+              <span className="text-3xl font-extrabold text-white">1,200+</span>
+              <span className="text-xs text-slate-400 uppercase tracking-wider mt-1">Elite Tutors</span>
+            </div>
+          </div>
+        </div>
       </div>
 
       {/* 4. FAQs Collapsible Section (Extra Section 2) */}
