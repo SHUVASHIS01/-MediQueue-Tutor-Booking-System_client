@@ -2,9 +2,44 @@ import React, { useState, useEffect } from 'react';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import { useTheme } from '../context/ThemeContext';
-import { Mail, Lock, User, Image, AlertCircle } from 'lucide-react';
+import {
+  Mail,
+  Lock,
+  User,
+  Image,
+  AlertCircle,
+  GraduationCap,
+  BookOpen,
+  Star,
+  Clock,
+  ArrowRight,
+} from 'lucide-react';
 import Swal from 'sweetalert2';
 
+/* ─────────────────────────────────────────────
+   Left-panel trust bullets
+───────────────────────────────────────────── */
+const FEATURES = [
+  {
+    icon: BookOpen,
+    title: 'Expert-Led Sessions',
+    desc: 'Learn from industry professionals and academic experts.',
+  },
+  {
+    icon: Star,
+    title: 'Top-Rated Tutors',
+    desc: 'All tutors maintain a 4.8+ rating across thousands of reviews.',
+  },
+  {
+    icon: Clock,
+    title: 'Flexible Scheduling',
+    desc: 'Book sessions 24/7 at times that fit your lifestyle.',
+  },
+];
+
+/* ─────────────────────────────────────────────
+   Component
+───────────────────────────────────────────── */
 const Register = () => {
   const { createUser, signInWithGoogle, updateUserProfile } = useAuth();
   const { theme } = useTheme();
@@ -12,17 +47,17 @@ const Register = () => {
     name: '',
     email: '',
     photoUrl: '',
-    password: ''
+    password: '',
   });
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
-  
+
   const navigate = useNavigate();
   const location = useLocation();
-  const from = location.state?.from?.pathname || "/";
+  const from = location.state?.from?.pathname || '/';
 
   useEffect(() => {
-    document.title = 'Register - MediQueue';
+    document.title = 'Register – MediQueue';
   }, []);
 
   const handleChange = (e) => {
@@ -38,8 +73,6 @@ const Register = () => {
       setError('Please fill in all required fields.');
       return;
     }
-
-    // Password criteria validation
     if (password.length < 6) {
       setError('Password must be at least 6 characters long.');
       return;
@@ -55,11 +88,13 @@ const Register = () => {
 
     setLoading(true);
     try {
-      // Create User
-      const userCredential = await createUser(email, password);
-      // Update Profile Details
-      await updateUserProfile(name, photoUrl || 'https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?auto=format&fit=crop&q=80&w=200');
-      
+      await createUser(email, password);
+      await updateUserProfile(
+        name,
+        photoUrl ||
+          'https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?auto=format&fit=crop&q=80&w=200'
+      );
+
       Swal.fire({
         title: 'Registration Successful!',
         text: 'Welcome to MediQueue. Please log in with your credentials.',
@@ -67,7 +102,7 @@ const Register = () => {
         confirmButtonText: 'Proceed to Login',
         confirmButtonColor: '#4F46E5',
         background: theme === 'dark' ? '#1e293b' : '#ffffff',
-        color: theme === 'dark' ? '#f1f5f9' : '#0f172a'
+        color: theme === 'dark' ? '#f1f5f9' : '#0f172a',
       });
       navigate('/login');
     } catch (err) {
@@ -83,13 +118,13 @@ const Register = () => {
     try {
       await signInWithGoogle();
       Swal.fire({
-        title: 'Welcome Back!',
-        text: 'Successfully logged in with Google.',
+        title: 'Welcome!',
+        text: 'Successfully signed up with Google.',
         icon: 'success',
         timer: 1500,
         showConfirmButton: false,
         background: theme === 'dark' ? '#1e293b' : '#ffffff',
-        color: theme === 'dark' ? '#f1f5f9' : '#0f172a'
+        color: theme === 'dark' ? '#f1f5f9' : '#0f172a',
       });
       navigate(from, { replace: true });
     } catch (err) {
@@ -100,170 +135,262 @@ const Register = () => {
         icon: 'error',
         confirmButtonColor: '#ef4444',
         background: theme === 'dark' ? '#1e293b' : '#ffffff',
-        color: theme === 'dark' ? '#f1f5f9' : '#0f172a'
+        color: theme === 'dark' ? '#f1f5f9' : '#0f172a',
       });
     } finally {
       setLoading(false);
     }
   };
 
+  /* ── shared input class ── */
+  const inputCls =
+    'w-full pl-11 pr-4 py-3 text-sm border border-slate-200 dark:border-slate-700 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent bg-white dark:bg-slate-900/50 text-slate-900 dark:text-white placeholder-slate-400 transition-all duration-200';
+
   return (
-    <div className="min-h-[85vh] flex items-center justify-center px-4 py-12 bg-slate-50 dark:bg-[#070b13] transition-colors duration-300">
-      <div className="w-full max-w-md p-8 rounded-2xl shadow-xl border border-slate-100 dark:border-slate-800 bg-white dark:bg-[#0f1626] transition-all duration-300">
-        
-        <div className="text-center mb-8">
-          <h2 className="text-3xl font-extrabold bg-gradient-to-r from-primary-600 to-teal-500 bg-clip-text text-transparent">
-            Create an Account
+    <div className="min-h-screen flex items-stretch bg-slate-50 dark:bg-[#070b13] transition-colors duration-300">
+
+      {/* ══════════════════════════════════════
+          LEFT PANEL — dark gradient branding
+      ══════════════════════════════════════ */}
+      <div className="hidden lg:flex lg:w-[45%] xl:w-[42%] relative flex-col justify-between overflow-hidden bg-gradient-to-br from-slate-900 to-[#0a0f1e] px-12 py-14">
+
+        {/* Floating orbs */}
+        <div className="pointer-events-none absolute inset-0">
+          <div className="absolute -top-20 -left-20 w-96 h-96 rounded-full bg-teal-500 opacity-20 blur-3xl" />
+          <div className="absolute top-1/3 -right-28 w-80 h-80 rounded-full bg-primary-600 opacity-20 blur-3xl" />
+          <div className="absolute -bottom-24 left-1/4 w-72 h-72 rounded-full bg-indigo-600 opacity-10 blur-3xl" />
+        </div>
+
+        {/* Brand logo */}
+        <div className="relative z-10">
+          <div className="flex items-center gap-3 mb-10">
+            <div className="flex items-center justify-center w-12 h-12 rounded-2xl bg-gradient-to-br from-primary-500 to-teal-400 shadow-lg shadow-primary-500/30">
+              <GraduationCap className="text-white" size={26} />
+            </div>
+            <span className="text-2xl font-extrabold text-white tracking-tight">
+              Medi<span className="bg-gradient-to-r from-primary-400 to-teal-300 bg-clip-text text-transparent">Queue</span>
+            </span>
+          </div>
+
+          {/* Badge pill */}
+          <span className="inline-block text-xs font-bold uppercase tracking-widest text-teal-400 bg-teal-950/40 border border-teal-800/50 px-4 py-1.5 rounded-full mb-6">
+            Join Today — It's Free
+          </span>
+
+          <h2 className="text-4xl xl:text-5xl font-extrabold text-white leading-tight mb-4">
+            Start your<br />
+            <span className="bg-gradient-to-r from-primary-400 to-teal-300 bg-clip-text text-transparent">
+              learning journey.
+            </span>
           </h2>
-          <p className="text-sm mt-2 text-slate-500 dark:text-slate-400">
-            Join MediQueue and connect with elite tutors today
+          <p className="text-slate-400 text-base leading-relaxed max-w-xs">
+            Create your free account and get matched with the perfect tutor in minutes.
           </p>
         </div>
 
-        {error && (
-          <div className="flex items-center space-x-2 p-4 mb-6 rounded-lg text-sm bg-red-50 dark:bg-red-950/20 text-red-600 dark:text-red-400 border border-red-100 dark:border-red-900/30">
-            <AlertCircle className="h-5 w-5 shrink-0" />
-            <span>{error}</span>
-          </div>
-        )}
-
-        <form onSubmit={handleRegister} className="space-y-4">
-          {/* Name Field */}
-          <div>
-            <label className="block text-xs font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-1">
-              Full Name
-            </label>
-            <div className="relative">
-              <span className="absolute inset-y-0 left-0 flex items-center pl-3 text-slate-400">
-                <User size={18} />
-              </span>
-              <input
-                type="text"
-                name="name"
-                value={formData.name}
-                onChange={handleChange}
-                required
-                placeholder="John Doe"
-                className="w-full pl-10 pr-4 py-2 text-sm border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 dark:bg-slate-900/50 dark:border-slate-850 focus:border-transparent dark:text-white"
-              />
+        {/* Trust bullets */}
+        <div className="relative z-10 space-y-5">
+          {FEATURES.map(({ icon: Icon, title, desc }) => (
+            <div key={title} className="flex items-start gap-4">
+              <div className="flex-shrink-0 flex items-center justify-center w-10 h-10 rounded-xl bg-white/5 border border-white/10 backdrop-blur-sm">
+                <Icon className="text-teal-400" size={18} />
+              </div>
+              <div>
+                <p className="text-white text-sm font-semibold">{title}</p>
+                <p className="text-slate-400 text-xs leading-relaxed">{desc}</p>
+              </div>
             </div>
-          </div>
+          ))}
+        </div>
 
-          {/* Email Field */}
-          <div>
-            <label className="block text-xs font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-1">
-              Email Address
-            </label>
-            <div className="relative">
-              <span className="absolute inset-y-0 left-0 flex items-center pl-3 text-slate-400">
-                <Mail size={18} />
-              </span>
-              <input
-                type="email"
-                name="email"
-                value={formData.email}
-                onChange={handleChange}
-                required
-                placeholder="john@example.com"
-                className="w-full pl-10 pr-4 py-2 text-sm border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 dark:bg-slate-900/50 dark:border-slate-850 focus:border-transparent dark:text-white"
-              />
+        {/* Bottom footnote */}
+        <p className="relative z-10 text-slate-600 text-xs">
+          © {new Date().getFullYear()} MediQueue. All rights reserved.
+        </p>
+      </div>
+
+      {/* ══════════════════════════════════════
+          RIGHT PANEL — form
+      ══════════════════════════════════════ */}
+      <div className="flex-1 flex items-center justify-center px-6 py-14 sm:px-10 lg:px-16 xl:px-20">
+        <div className="w-full max-w-md">
+
+          {/* Mobile logo (visible only on small screens) */}
+          <div className="flex lg:hidden items-center gap-2 justify-center mb-8">
+            <div className="flex items-center justify-center w-10 h-10 rounded-xl bg-gradient-to-br from-primary-500 to-teal-400">
+              <GraduationCap className="text-white" size={22} />
             </div>
+            <span className="text-xl font-extrabold text-slate-900 dark:text-white">
+              Medi<span className="bg-gradient-to-r from-primary-500 to-teal-400 bg-clip-text text-transparent">Queue</span>
+            </span>
           </div>
 
-          {/* Photo URL Field */}
-          <div>
-            <label className="block text-xs font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-1">
-              Photo URL (Optional)
-            </label>
-            <div className="relative">
-              <span className="absolute inset-y-0 left-0 flex items-center pl-3 text-slate-400">
-                <Image size={18} />
-              </span>
-              <input
-                type="url"
-                name="photoUrl"
-                value={formData.photoUrl}
-                onChange={handleChange}
-                placeholder="https://example.com/avatar.jpg"
-                className="w-full pl-10 pr-4 py-2 text-sm border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 dark:bg-slate-900/50 dark:border-slate-850 focus:border-transparent dark:text-white"
-              />
-            </div>
-          </div>
-
-          {/* Password Field */}
-          <div>
-            <label className="block text-xs font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-1">
-              Password
-            </label>
-            <div className="relative">
-              <span className="absolute inset-y-0 left-0 flex items-center pl-3 text-slate-400">
-                <Lock size={18} />
-              </span>
-              <input
-                type="password"
-                name="password"
-                value={formData.password}
-                onChange={handleChange}
-                required
-                placeholder="••••••••"
-                className="w-full pl-10 pr-4 py-2 text-sm border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 dark:bg-slate-900/50 dark:border-slate-850 focus:border-transparent dark:text-white"
-              />
-            </div>
-            <p className="text-[10px] text-slate-400 dark:text-slate-500 mt-1 leading-tight">
-              Must contain at least 6 characters, including 1 uppercase and 1 lowercase letter.
+          {/* Header */}
+          <div className="mb-8">
+            <span className="inline-block text-xs font-bold uppercase tracking-widest text-primary-500 bg-primary-50 dark:bg-primary-950/20 border border-primary-200 dark:border-primary-900/30 px-4 py-1.5 rounded-full mb-4">
+              New Account
+            </span>
+            <h1 className="text-3xl font-extrabold bg-gradient-to-r from-primary-500 to-teal-400 bg-clip-text text-transparent mb-2">
+              Create an Account
+            </h1>
+            <p className="text-sm text-slate-500 dark:text-slate-400">
+              Join MediQueue and connect with elite tutors today.
             </p>
           </div>
 
-          {/* Register Button */}
+          {/* Error alert */}
+          {error && (
+            <div className="flex items-center gap-2.5 p-4 mb-6 rounded-xl text-sm bg-red-50 dark:bg-red-950/20 text-red-600 dark:text-red-400 border border-red-100 dark:border-red-900/30">
+              <AlertCircle className="h-5 w-5 shrink-0" />
+              <span>{error}</span>
+            </div>
+          )}
+
+          {/* Form */}
+          <form onSubmit={handleRegister} className="space-y-4">
+
+            {/* Name */}
+            <div>
+              <label className="block text-xs font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-1.5">
+                Full Name
+              </label>
+              <div className="relative">
+                <span className="absolute inset-y-0 left-0 flex items-center pl-3.5 text-slate-400 pointer-events-none">
+                  <User size={17} />
+                </span>
+                <input
+                  type="text"
+                  name="name"
+                  value={formData.name}
+                  onChange={handleChange}
+                  required
+                  placeholder="John Doe"
+                  className={inputCls}
+                />
+              </div>
+            </div>
+
+            {/* Email */}
+            <div>
+              <label className="block text-xs font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-1.5">
+                Email Address
+              </label>
+              <div className="relative">
+                <span className="absolute inset-y-0 left-0 flex items-center pl-3.5 text-slate-400 pointer-events-none">
+                  <Mail size={17} />
+                </span>
+                <input
+                  type="email"
+                  name="email"
+                  value={formData.email}
+                  onChange={handleChange}
+                  required
+                  placeholder="john@example.com"
+                  className={inputCls}
+                />
+              </div>
+            </div>
+
+            {/* Photo URL */}
+            <div>
+              <label className="block text-xs font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-1.5">
+                Photo URL <span className="normal-case font-normal text-slate-400">(optional)</span>
+              </label>
+              <div className="relative">
+                <span className="absolute inset-y-0 left-0 flex items-center pl-3.5 text-slate-400 pointer-events-none">
+                  <Image size={17} />
+                </span>
+                <input
+                  type="url"
+                  name="photoUrl"
+                  value={formData.photoUrl}
+                  onChange={handleChange}
+                  placeholder="https://example.com/avatar.jpg"
+                  className={inputCls}
+                />
+              </div>
+            </div>
+
+            {/* Password */}
+            <div>
+              <label className="block text-xs font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-1.5">
+                Password
+              </label>
+              <div className="relative">
+                <span className="absolute inset-y-0 left-0 flex items-center pl-3.5 text-slate-400 pointer-events-none">
+                  <Lock size={17} />
+                </span>
+                <input
+                  type="password"
+                  name="password"
+                  value={formData.password}
+                  onChange={handleChange}
+                  required
+                  placeholder="••••••••"
+                  className={inputCls}
+                />
+              </div>
+              <p className="text-[11px] text-slate-400 dark:text-slate-500 mt-1.5 leading-snug">
+                Must be ≥ 6 characters with at least 1 uppercase and 1 lowercase letter.
+              </p>
+            </div>
+
+            {/* Submit */}
+            <button
+              type="submit"
+              disabled={loading}
+              className="w-full flex items-center justify-center gap-2 py-3 px-4 font-semibold text-white rounded-xl bg-gradient-to-r from-primary-600 to-teal-500 hover:from-primary-500 hover:to-teal-400 shadow-lg shadow-primary-500/20 focus:outline-none transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed mt-1"
+            >
+              {loading ? (
+                <span className="h-5 w-5 border-2 border-white border-t-transparent rounded-full animate-spin" />
+              ) : (
+                <>
+                  <span>Create Account</span>
+                  <ArrowRight size={16} />
+                </>
+              )}
+            </button>
+          </form>
+
+          {/* Divider */}
+          <div className="relative my-7">
+            <div className="absolute inset-0 flex items-center">
+              <div className="w-full border-t border-slate-200 dark:border-slate-800" />
+            </div>
+            <div className="relative flex justify-center text-xs">
+              <span className="px-3 text-slate-400 bg-slate-50 dark:bg-[#070b13] uppercase tracking-wider">
+                Or sign up with
+              </span>
+            </div>
+          </div>
+
+          {/* Google */}
           <button
-            type="submit"
+            onClick={handleGoogleLogin}
             disabled={loading}
-            className="w-full py-2.5 px-4 font-semibold text-white rounded-lg bg-gradient-to-r from-primary-600 to-teal-500 hover:from-primary-700 hover:to-teal-600 shadow-md hover:shadow-lg hover:shadow-primary-500/20 focus:outline-none transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center space-x-2"
+            className="w-full flex items-center justify-center gap-3 py-3 px-4 border border-slate-200 dark:border-slate-700 hover:bg-slate-100 dark:hover:bg-slate-800/60 rounded-xl text-sm font-semibold text-slate-700 dark:text-slate-200 transition-all duration-200 focus:outline-none disabled:opacity-50 disabled:cursor-not-allowed"
           >
-            {loading ? (
-              <span className="h-5 w-5 border-2 border-white border-t-transparent rounded-full animate-spin"></span>
-            ) : (
-              <span>Register</span>
-            )}
+            <svg className="h-5 w-5 shrink-0" viewBox="0 0 24 24">
+              <path fill="#EA4335" d="M12 4.787c1.782 0 3.385.603 4.646 1.8l3.491-3.491C18.04 1.18 15.228 0 12 0 7.375 0 3.371 2.617 1.341 6.451l4.053 3.146C6.353 6.711 8.949 4.787 12 4.787z" />
+              <path fill="#4285F4" d="M23.985 12.278c0-.84-.075-1.646-.215-2.433H12v4.606h6.719c-.29 1.488-1.11 2.748-2.352 3.58v2.981h3.811c2.23-2.053 3.513-5.077 3.513-8.734z" />
+              <path fill="#FBBC05" d="M6.353 14.403c-.244-.734-.383-1.523-.383-2.341s.139-1.607.383-2.341L2.301 6.575C1.611 7.95 1.22 9.531 1.22 11.202s.391 3.252 1.081 4.627l4.052-3.146z" />
+              <path fill="#34A853" d="M12 24c3.228 0 5.94-1.07 7.922-2.894l-3.812-2.981c-1.074.721-2.449 1.147-4.11 1.147-3.051 0-5.647-1.924-6.606-4.81l-4.053 3.147C3.371 21.383 7.375 24 12 24z" />
+            </svg>
+            <span>Continue with Google</span>
           </button>
-        </form>
 
-        {/* Divider */}
-        <div className="relative my-6">
-          <div className="absolute inset-0 flex items-center">
-            <div className="w-full border-t border-slate-200 dark:border-slate-800"></div>
-          </div>
-          <div className="relative flex justify-center text-xs">
-            <span className="px-2 text-slate-500 bg-white dark:bg-[#0f1626] uppercase">Or Sign Up With</span>
-          </div>
+          {/* Login redirect */}
+          <p className="text-center text-sm mt-8 text-slate-600 dark:text-slate-400">
+            Already have an account?{' '}
+            <Link
+              to="/login"
+              className="font-bold text-primary-600 hover:text-primary-500 hover:underline transition-all"
+            >
+              Login here
+            </Link>
+          </p>
+
         </div>
-
-        {/* Google Login Button */}
-        <button
-          onClick={handleGoogleLogin}
-          disabled={loading}
-          className="w-full flex items-center justify-center space-x-2 py-2 px-4 border border-slate-200 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-800 rounded-lg text-sm font-semibold text-slate-700 dark:text-slate-200 transition-colors focus:outline-none"
-        >
-          <svg className="h-5 w-5" viewBox="0 0 24 24">
-            <path fill="#EA4335" d="M12 4.787c1.782 0 3.385.603 4.646 1.8l3.491-3.491C18.04 1.18 15.228 0 12 0 7.375 0 3.371 2.617 1.341 6.451l4.053 3.146C6.353 6.711 8.949 4.787 12 4.787z"/>
-            <path fill="#4285F4" d="M23.985 12.278c0-.84-.075-1.646-.215-2.433H12v4.606h6.719c-.29 1.488-1.11 2.748-2.352 3.58v2.981h3.811c2.23-2.053 3.513-5.077 3.513-8.734z"/>
-            <path fill="#FBBC05" d="M6.353 14.403c-.244-.734-.383-1.523-.383-2.341s.139-1.607.383-2.341L2.301 6.575C1.611 7.95 1.22 9.531 1.22 11.202s.391 3.252 1.081 4.627l4.052-3.146z"/>
-            <path fill="#34A853" d="M12 24c3.228 0 5.94-1.07 7.922-2.894l-3.812-2.981c-1.074.721-2.449 1.147-4.11 1.147-3.051 0-5.647-1.924-6.606-4.81l-4.053 3.147C3.371 21.383 7.375 24 12 24z"/>
-          </svg>
-          <span>Continue with Google</span>
-        </button>
-
-        {/* Login redirect link */}
-        <p className="text-center text-sm mt-8 text-slate-600 dark:text-slate-400">
-          Already have an account?{' '}
-          <Link
-            to="/login"
-            className="font-bold text-primary-600 hover:text-primary-500 hover:underline transition-all"
-          >
-            Login here
-          </Link>
-        </p>
-
       </div>
     </div>
   );
