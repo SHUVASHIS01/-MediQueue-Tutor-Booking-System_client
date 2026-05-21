@@ -1,0 +1,60 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    @apply transition-colors duration-300 antialiased font-sans text-slate-800 bg-slate-50;
+  }
+  
+  body.dark {
+    @apply text-slate-100 bg-[#070b13];
+  }
+}
+
+/* Glassmorphism utility */
+.glass {
+  background: rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.dark .glass {
+  background: rgba(15, 23, 42, 0.6);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+/* Card hover animation */
+.hover-card {
+  @apply transition-all duration-300 hover:-translate-y-1 hover:shadow-xl hover:shadow-primary-500/10;
+}
+
+/* Smooth custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  @apply bg-transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  @apply bg-slate-300 rounded-full dark:bg-slate-700;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  @apply bg-slate-400 dark:bg-slate-600;
+}
+
+/* Active Navlink pulse */
+.nav-active {
+  @apply relative text-primary-500 dark:text-primary-400 font-semibold;
+}
+
+.nav-active::after {
+  content: '';
+  @apply absolute bottom-[-4px] left-0 w-full h-[2px] bg-primary-500 dark:bg-primary-400 rounded-full;
+}
